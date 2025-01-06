@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.AdminMapper">
+
+    <resultMap id="AdminResultMap" type="com.example.demo.entity.Admin">
+        <id property="adminid" column="adminid"/>
+        <result property="adminusername" column="adminusername"/>
+        <result property="adminpassword" column="adminpassword"/>
+        <result property="adminemail" column="adminemail"/>
+    </resultMap>
+
+    <select id="getAllAdmins" resultMap="AdminResultMap">
+        SELECT * FROM admin
+    </select>
+
+    <select id="getAdminById" parameterType="int" resultMap="AdminResultMap">
+        SELECT * FROM admin WHERE adminid = #{adminid}
+    </select>
+
+    <select id="findByUsername" parameterType="string" resultMap="AdminResultMap">
+        SELECT * FROM admin WHERE adminusername = #{username}
+    </select>
+
+
+    <insert id="addAdmin" parameterType="com.example.demo.entity.Admin">
+        INSERT INTO admin (adminusername, adminpassword, adminemail)
+        VALUES (#{adminusername}, #{adminpassword}, #{adminemail})
+    </insert>
+
+    <update id="updateAdmin" parameterType="com.example.demo.entity.Admin">
+        UPDATE admin
+        SET adminusername = #{adminusername},
+            adminpassword = #{adminpassword},
+            adminemail = #{adminemail}
+        WHERE adminid = #{adminid}
+    </update>
+
+    <delete id="deleteAdmin" parameterType="int">
+        DELETE FROM admin WHERE adminid = #{adminid}
+    </delete>
+
+</mapper>
