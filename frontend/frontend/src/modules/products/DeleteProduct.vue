@@ -1,114 +1,76 @@
 <template>
-  <div class="product-form">
+  <div>
     <h2>刪除產品</h2>
-    <p>您確定要刪除產品 <strong>{{ product.productsname }}</strong> 嗎？</p>
-    <div class="actions">
-      <button @click="deleteProduct" class="delete-btn">刪除</button>
-      <button @click="cancel" class="cancel-btn">取消</button>
-    </div>
+    <p>確定要刪除 <strong>{{ product.productsname }}</strong> 嗎？</p>
+    <button @click="deleteProduct" class="btn delete-btn">確定刪除</button>
+    <router-link to="/products" class="btn">取消</router-link>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
 import axios from "axios";
 
-// 路由
-const route = useRoute();
+// 使用 props 接收路由參數 id
+const props = defineProps(["id"]);
+const product = ref({});
 const router = useRouter();
-const productId = route.params.id;
 
-// 產品資料
-const product = ref({
-  productsname: "",
-  productsprice: null,
-  productsdescribe: "",
-  productspic: "",
-});
-
-// 獲取產品資料
-const fetchProduct = async () => {
+// 請求產品詳細信息
+const fetchProductDetails = async () => {
   try {
-    const response = await axios.get(`http://localhost:8080/api/products/${productId}`);
+    const response = await axios.get(`http://localhost:8080/api/products/${props.id}`);
     product.value = response.data;
   } catch (error) {
-    console.error("無法獲取產品資料：", error);
-    alert("無法載入產品資料，請稍後再試！");
-    router.push("/");
+    console.error("無法載入產品資料:", error);
   }
 };
 
-// 刪除產品資料
+// 刪除產品
 const deleteProduct = async () => {
   try {
-    await axios.delete(`http://localhost:8080/api/products/${productId}`);
+    await axios.delete(`http://localhost:8080/api/products/${props.id}`);
     alert("產品刪除成功！");
-    router.push("/");
+    router.push("/products"); // 返回產品列表頁
   } catch (error) {
-    console.error("刪除產品失敗：", error);
-    alert("產品刪除失敗，請稍後再試！");
+    console.error("刪除失敗:", error);
   }
 };
 
-// 取消刪除操作
-const cancel = () => {
-  router.push("/");
-};
-
-// 組件加載時獲取產品資料
-onMounted(fetchProduct);
+onMounted(fetchProductDetails);
 </script>
 
 <style scoped>
-.product-form {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-  background: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
+form {
+  max-width: 400px;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-h2 {
-  margin-bottom: 20px;
+label {
+  font-weight: bold;
 }
 
-.actions {
-  margin-top: 20px;
+input,
+textarea {
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
 }
 
-button.delete-btn {
-  padding: 10px 20px;
-  background: #e74c3c;
-  color: #fff;
+button {
+  padding: 10px;
+  background: #007bff;
+  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 16px;
-  margin-right: 10px;
 }
 
-button.delete-btn:hover {
-  background: #c0392b;
-}
-
-button.cancel-btn {
-  padding: 10px 20px;
-  background: #7f8c8d;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button.cancel-btn:hover {
-  background: #5d6d7e;
+button:hover {
+  background: #0056b3;
 }
 </style>
-
-
-
-  

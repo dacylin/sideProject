@@ -9,5 +9,5 @@ public class Admin {
     private String adminusername;
     private String adminpassword;
     private String adminemail;
-    private String adminrole;
+
 }

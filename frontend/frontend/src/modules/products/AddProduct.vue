@@ -1,44 +1,51 @@
 <template>
   <div class="add-product">
     <h2>新增產品</h2>
-    <form @submit.prevent="submitProduct">
+    <form @submit.prevent="addProduct">
       <div class="form-group">
         <label for="productsname">產品名稱</label>
         <input
           type="text"
           id="productsname"
-          v-model="newProduct.productsname"
+          v-model="product.productsname"
+          placeholder="請輸入產品名稱"
           required
         />
       </div>
+
       <div class="form-group">
-        <label for="productsprice">價格</label>
+        <label for="productsprice">產品價格</label>
         <input
           type="number"
           id="productsprice"
-          v-model="newProduct.productsprice"
+          v-model="product.productsprice"
+          placeholder="請輸入產品價格"
           required
-          min="1"
         />
       </div>
+
       <div class="form-group">
-        <label for="productsdescribe">描述</label>
+        <label for="productsdescribe">產品描述</label>
         <textarea
           id="productsdescribe"
-          v-model="newProduct.productsdescribe"
+          v-model="product.productsdescribe"
+          placeholder="請輸入產品描述"
           required
         ></textarea>
       </div>
+
       <div class="form-group">
-        <label for="productspic">圖片網址</label>
+        <label for="productspic">產品圖片 URL</label>
         <input
-          type="url"
+          type="text"
           id="productspic"
-          v-model="newProduct.productspic"
+          v-model="product.productspic"
+          placeholder="請輸入圖片網址"
           required
         />
       </div>
-      <button type="submit" class="submit-btn">新增產品</button>
+
+      <button type="submit" class="btn">新增產品</button>
     </form>
   </div>
 </template>
@@ -47,45 +54,39 @@
 import { ref } from "vue";
 import axios from "axios";
 
-// 新產品資料
-const newProduct = ref({
+const product = ref({
   productsname: "",
-  productsprice: null,
+  productsprice: "",
   productsdescribe: "",
   productspic: "",
 });
 
-// 提交新產品
-const submitProduct = async () => {
+const addProduct = async () => {
   try {
-    const response = await axios.post("http://localhost:8080/api/products", newProduct.value);
-    alert("產品新增成功！");
-    resetForm();
+    const response = await axios.post("http://localhost:8080/api/products", product.value);
+    alert("新增產品成功！");
+    console.log("新增成功：", response.data);
+    product.value = {
+      productsname: "",
+      productsprice: "",
+      productsdescribe: "",
+      productspic: "",
+    };
   } catch (error) {
     console.error("新增產品失敗：", error);
-    alert("產品新增失敗，請稍後再試！");
+    alert("新增產品失敗，請稍後再試！");
   }
-};
-
-// 重置表單
-const resetForm = () => {
-  newProduct.value = {
-    productsname: "",
-    productsprice: null,
-    productsdescribe: "",
-    productspic: "",
-  };
 };
 </script>
 
 <style scoped>
 .add-product {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 20px;
-  background: #fff;
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #fff;
 }
 
 h2 {
@@ -99,8 +100,8 @@ h2 {
 
 label {
   display: block;
-  margin-bottom: 5px;
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
 input,
@@ -114,22 +115,22 @@ textarea {
 
 textarea {
   resize: vertical;
-  min-height: 100px;
 }
 
-button.submit-btn {
+button {
   display: block;
   width: 100%;
-  padding: 10px 15px;
+  padding: 10px;
   background: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
+  transition: background 0.2s ease-in-out;
 }
 
-button.submit-btn:hover {
+button:hover {
   background: #0056b3;
 }
 </style>

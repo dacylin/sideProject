@@ -10,7 +10,6 @@
         <result property="adminusername" column="adminusername"/>
         <result property="adminpassword" column="adminpassword"/>
         <result property="adminemail" column="adminemail"/>
-        <result property="adminrole" column="adminrole"/>
     </resultMap>
 
     <select id="getAllAdmins" resultMap="AdminResultMap">
@@ -21,17 +20,21 @@
         SELECT * FROM admin WHERE adminid = #{adminid}
     </select>
 
+    <select id="findByUsername" parameterType="string" resultMap="AdminResultMap">
+        SELECT * FROM admin WHERE adminusername = #{username}
+    </select>
+
+
     <insert id="addAdmin" parameterType="com.example.demo.entity.Admin">
-        INSERT INTO admin (adminusername, adminpassword, adminemail, adminrole)
-        VALUES (#{adminusername}, #{adminpassword}, #{adminemail}, #{adminrole})
+        INSERT INTO admin (adminusername, adminpassword, adminemail)
+        VALUES (#{adminusername}, #{adminpassword}, #{adminemail})
     </insert>
 
     <update id="updateAdmin" parameterType="com.example.demo.entity.Admin">
         UPDATE admin
         SET adminusername = #{adminusername},
             adminpassword = #{adminpassword},
-            adminemail = #{adminemail},
-            adminrole = #{adminrole}
+            adminemail = #{adminemail}
         WHERE adminid = #{adminid}
     </update>
 

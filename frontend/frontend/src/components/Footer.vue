@@ -1,17 +1,18 @@
 <template>
   <footer class="footer">
-    <p>© 2025 CheeseCake Shop. All Rights Reserved.</p>
+    <p>&copy; 2025 管理系統 - 保留所有權利</p>
   </footer>
 </template>
 
 <script setup>
 </script>
 
-<style scoped>
+<style>
 .footer {
-  background: #333;
-  color: #fff;
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
   text-align: center;
-  padding: 10px;
 }
 </style>
+

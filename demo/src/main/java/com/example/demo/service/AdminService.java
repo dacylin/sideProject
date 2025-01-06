@@ -6,6 +6,8 @@ import com.example.demo.entity.Admin;
 
 public interface AdminService {
 
+    Admin validateAdmin(String username, String password);
+
     List<Admin> getAllAdmins();
 
     Admin getAdminById(Integer adminid);
@@ -15,4 +17,5 @@ public interface AdminService {
     void updateAdmin(Admin admin);
 
     void deleteAdmin(Integer adminid);
+
 }

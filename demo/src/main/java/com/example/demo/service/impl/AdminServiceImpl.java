@@ -12,6 +12,15 @@ import com.example.demo.service.AdminService;
 @Service
 public class AdminServiceImpl implements AdminService {
 
+    @Override
+    public Admin validateAdmin(String username, String password) {
+        Admin admin = adminMapper.findByUsername(username);
+        if (admin != null && admin.getAdminpassword().equals(password)) {
+            return admin;
+        }
+        return null;
+    }
+
     @Autowired
     private AdminMapper adminMapper;
 
@@ -39,4 +48,5 @@ public class AdminServiceImpl implements AdminService {
     public void deleteAdmin(Integer adminid) {
         adminMapper.deleteAdmin(adminid);
     }
+
 }

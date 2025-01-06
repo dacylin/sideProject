@@ -4,9 +4,9 @@
     <div class="products">
       <div
         v-for="product in products"
-        :key="product.productsid"
+        :key="product.productsid" 
         class="product-card"
-        @click="selectProduct(product)"
+        @click="selectProduct(product)" 
       >
         <div class="product-image-container">
           <img :src="product.productspic" alt="Product Image" class="product-image" />
@@ -18,17 +18,23 @@
       </div>
     </div>
 
-    <!-- 選中產品模態框 -->
+    <!-- 小卡彈窗 -->
     <div v-if="selectedProduct" class="modal">
       <div class="modal-content">
         <button class="close-btn" @click="closeModal">×</button>
         <h2>{{ selectedProduct.productsname }}</h2>
         <img :src="selectedProduct.productspic" alt="Product Image" class="product-detail-image" />
         <p><strong>價格：</strong>NT${{ selectedProduct.productsprice }}</p>
-        <p><strong></strong>{{ selectedProduct.productsdescribe }}</p>
+        <p><strong>描述：</strong>{{ selectedProduct.productsdescribe }}</p>
         <div class="modal-actions">
-          <router-link :to="`/product/edit/${selectedProduct.productsid}`" class="btn">更新</router-link>
-          <router-link :to="`/product/delete/${selectedProduct.productsid}`" class="btn delete-btn">刪除</router-link>
+         
+          <router-link :to="`/product/edit/${selectedProduct.productsid}`" class="btn">
+            更新
+          </router-link>
+         
+          <router-link :to="`/product/delete/${selectedProduct.productsid}`" class="btn delete-btn">
+            刪除
+          </router-link>
         </div>
       </div>
     </div>
@@ -39,26 +45,25 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-// 產品資料和選中產品
-const products = ref([]);
-const selectedProduct = ref(null);
+const products = ref([]); // 產品列表
+const selectedProduct = ref(null); // 當前選中的產品
 
-// 獲取產品資料
+// 從後端加載產品數據
 const fetchProducts = async () => {
   try {
     const response = await axios.get("http://localhost:8080/api/products");
     products.value = response.data;
   } catch (error) {
-    console.error("無法載入產品資料：", error);
+    console.error("無法載入產品資料:", error);
   }
 };
 
-// 選擇產品
+// 選擇產品，打開小卡
 const selectProduct = (product) => {
   selectedProduct.value = product;
 };
 
-// 關閉模態框
+// 關閉小卡
 const closeModal = () => {
   selectedProduct.value = null;
 };
@@ -116,17 +121,16 @@ onMounted(fetchProducts);
   margin: 10px 0;
 }
 
-/* 模態框樣式 */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* 背景半透明遮罩 */
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
+  justify-content: center;
+  align-items: center;
   z-index: 1000;
 }
 
@@ -135,7 +139,6 @@ onMounted(fetchProducts);
   padding: 20px;
   border-radius: 12px;
   width: 500px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
   text-align: center;
   position: relative;
 }
@@ -167,7 +170,6 @@ onMounted(fetchProducts);
   color: #fff;
   text-decoration: none;
   border-radius: 4px;
-  font-size: 14px;
 }
 
 .btn:hover {
@@ -192,9 +194,4 @@ onMounted(fetchProducts);
   cursor: pointer;
 }
 </style>
-
-
-
-
-
 
