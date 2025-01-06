@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <h1>管理系統</h1>
+    <h1>後台管理系統</h1>
   </header>
 </template>
 

@@ -25,7 +25,7 @@
         <h2>{{ selectedProduct.productsname }}</h2>
         <img :src="selectedProduct.productspic" alt="Product Image" class="product-detail-image" />
         <p><strong>價格：</strong>NT${{ selectedProduct.productsprice }}</p>
-        <p><strong>描述：</strong>{{ selectedProduct.productsdescribe }}</p>
+        <p><strong></strong>{{ selectedProduct.productsdescribe }}</p>
         <div class="modal-actions">
          
           <router-link :to="`/product/edit/${selectedProduct.productsid}`" class="btn">
@@ -45,10 +45,9 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-const products = ref([]); // 產品列表
-const selectedProduct = ref(null); // 當前選中的產品
+const products = ref([]); 
+const selectedProduct = ref(null); 
 
-// 從後端加載產品數據
 const fetchProducts = async () => {
   try {
     const response = await axios.get("http://localhost:8080/api/products");
@@ -58,12 +57,10 @@ const fetchProducts = async () => {
   }
 };
 
-// 選擇產品，打開小卡
 const selectProduct = (product) => {
   selectedProduct.value = product;
 };
 
-// 關閉小卡
 const closeModal = () => {
   selectedProduct.value = null;
 };

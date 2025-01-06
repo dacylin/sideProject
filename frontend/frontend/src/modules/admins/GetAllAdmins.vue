@@ -29,7 +29,7 @@ const fetchAdmins = async () => {
     const response = await axios.get("http://localhost:8080/api/admins");
     admins.value = response.data;
   } catch (error) {
-    console.error("無法加載管理者列表:", error);
+    console.error("無法下載管理者列表:", error);
   }
 };
 

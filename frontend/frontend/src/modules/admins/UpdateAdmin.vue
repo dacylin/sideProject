@@ -3,7 +3,7 @@
     <h2>更新管理者</h2>
     <form @submit.prevent="submitUpdate">
       <div>
-        <label for="username">名稱：</label>
+        <label for="username">用戶名稱：</label>
         <input id="username" v-model="admin.username" type="text" />
       </div>
       <div>
@@ -43,7 +43,7 @@ const fetchAdmin = async () => {
       password: "", 
     };
   } catch (error) {
-    console.error("無法加載管理者信息:", error);
+    console.error("無法下載管理者資料:", error);
   }
 };
 

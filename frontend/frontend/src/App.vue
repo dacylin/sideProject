@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-    <Header /> <!-- 全局 Header -->
+    <Header /> 
     <div class="main-container">
-      <Sidebar v-if="showSidebar" /> <!-- 左側導航 -->
+      <Sidebar v-if="showSidebar" /> 
       <div class="content-container">
-        <router-view /> <!-- 路由對應的內容頁 -->
+        <router-view /> 
       </div>
     </div>
-    <Footer /> <!-- 全局 Footer -->
+    <Footer /> 
   </div>
 </template>
 
@@ -24,7 +24,7 @@ const showSidebar = computed(() => route.name !== "Login"); // 僅非登入頁�
 </script>
 
 <style>
-/* 全局樣式 */
+
 #app {
   display: flex;
   flex-direction: column;
@@ -32,26 +32,25 @@ const showSidebar = computed(() => route.name !== "Login"); // 僅非登入頁�
   margin: 0;
 }
 
-/* 主容器，包含 Sidebar 和內容區域 */
 .main-container {
   display: flex;
-  flex: 1; /* 撑满剩余高度 */
+  flex: 1; 
   overflow: hidden;
 }
 
-/* Sidebar 的樣式 */
+
 .sidebar {
   width: 250px;
   background-color: #f4f4f4;
   border-right: 1px solid #ddd;
   padding: 20px 0;
-  overflow-y: auto; /* 防止內容過多時溢出 */
+  overflow-y: auto; 
 }
 
-/* 內容區域樣式 */
+
 .content-container {
-  flex: 1; /* 讓內容區域自適應剩餘寬度 */
-  overflow-y: auto; /* 防止內容過多時溢出 */
+  flex: 1; 
+  overflow-y: auto; 
   padding: 20px;
   background-color: #fff;
 }

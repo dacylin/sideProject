@@ -1,28 +1,28 @@
 <template>
   <div class="login">
     <form @submit.prevent="login">
-      <h2>管理系统登录</h2>
+      <h2>管理系统登入</h2>
       <div class="form-group">
-        <label for="username">用户名</label>
+        <label for="username">用户名稱</label>
         <input
           type="text"
           id="username"
           v-model="adminusername"
-          placeholder="请输入用户名"
+          placeholder="請輸入用戶名稱"
           required
         />
       </div>
       <div class="form-group">
-        <label for="password">密码</label>
+        <label for="password">密碼</label>
         <input
           type="password"
           id="password"
           v-model="adminpassword"
-          placeholder="请输入密码"
+          placeholder="請輸入密碼"
           required
         />
       </div>
-      <button type="submit" class="btn">登录</button>
+      <button type="submit" class="btn">登入</button>
     </form>
   </div>
 </template>
@@ -32,14 +32,11 @@ import { ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 
-// 定义数据
 const adminusername = ref("");
 const adminpassword = ref("");
 
-// 使用 Vue Router
 const router = useRouter();
 
-// 登录方法
 const login = async () => {
   try {
     const response = await axios.post("http://localhost:8080/api/admins/login", {
@@ -47,14 +44,13 @@ const login = async () => {
       adminpassword: adminpassword.value,
     });
 
-    // 登录成功后，将管理员信息存储到 localStorage
+  
     localStorage.setItem("admin", JSON.stringify(response.data));
 
-    // 跳转到商品管理页面
     router.push("/products");
   } catch (error) {
-    console.error("登录失败：", error);
-    alert("登录失败，请检查用户名或密码！");
+    console.error("登入失敗：", error);
+    alert("登入失敗，請重新輸入！");
   }
 };
 </script>

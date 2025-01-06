@@ -81,7 +81,7 @@ const addProduct = async () => {
 
 <style scoped>
 .add-product {
-  max-width: 600px;
+  max-width: 400px;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #ddd;
@@ -89,13 +89,14 @@ const addProduct = async () => {
   background: #fff;
 }
 
+.form-group {
+  margin-bottom: 15px;
+
+}
+
 h2 {
   text-align: center;
   margin-bottom: 20px;
-}
-
-.form-group {
-  margin-bottom: 15px;
 }
 
 label {
@@ -106,7 +107,11 @@ label {
 
 input,
 textarea {
-  width: 100%;
+  display: block;
+  width: calc(100% - 16px); 
+  max-width: 100%;
+  box-sizing: border-box;
+  margin: 0;
   padding: 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -118,16 +123,14 @@ textarea {
 }
 
 button {
-  display: block;
   width: 100%;
   padding: 10px;
-  background: #007bff;
+  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
-  transition: background 0.2s ease-in-out;
 }
 
 button:hover {

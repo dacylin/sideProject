@@ -1,6 +1,6 @@
 <template>
   <footer class="footer">
-    <p>&copy; 2025 管理系統 - 保留所有權利</p>
+    <p>&copy; 2025 管理系統 </p>
   </footer>
 </template>
 

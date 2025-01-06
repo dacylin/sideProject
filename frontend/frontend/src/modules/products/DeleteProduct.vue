@@ -12,12 +12,10 @@ import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 
-// 使用 props 接收路由參數 id
 const props = defineProps(["id"]);
 const product = ref({});
 const router = useRouter();
 
-// 請求產品詳細信息
 const fetchProductDetails = async () => {
   try {
     const response = await axios.get(`http://localhost:8080/api/products/${props.id}`);
@@ -27,12 +25,11 @@ const fetchProductDetails = async () => {
   }
 };
 
-// 刪除產品
 const deleteProduct = async () => {
   try {
     await axios.delete(`http://localhost:8080/api/products/${props.id}`);
     alert("產品刪除成功！");
-    router.push("/products"); // 返回產品列表頁
+    router.push("/products"); 
   } catch (error) {
     console.error("刪除失敗:", error);
   }

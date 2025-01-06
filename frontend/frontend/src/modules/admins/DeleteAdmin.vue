@@ -1,10 +1,10 @@
 <template>
   <div class="delete-admin">
     <h1>刪除管理員</h1>
-    <p>您確定要刪除以下管理員嗎？此操作無法撤銷</p>
+    <p>確定要刪除以下管理員嗎？此操作無法撤銷</p>
     <div class="admin-details">
       <p><strong>ID：</strong>{{ admin.adminid }}</p>
-      <p><strong>用戶名：</strong>{{ admin.adminusername }}</p>
+      <p><strong>用戶名稱：</strong>{{ admin.adminusername }}</p>
       <p><strong>Email：</strong>{{ admin.adminemail }}</p>
     </div>
     <div class="actions">
@@ -29,8 +29,8 @@ const fetchAdmin = async () => {
     const response = await axios.get(`http://localhost:8080/api/admins/${adminId}`);
     admin.value = response.data; 
   } catch (error) {
-    console.error("無法載入管理員數據：", error);
-    alert("管理員數據加載失敗！");
+    console.error("無法載入管理員資料：", error);
+    alert("管理員資料下載失敗！");
   }
 };
 
@@ -46,10 +46,10 @@ const deleteAdmin = async () => {
 };
 
 const cancelDelete = () => {
-  router.push("/admins"); // 返回管理員列表頁面
+  router.push("/admins"); 
 };
 
-onMounted(fetchAdmin); // 頁面加載時獲取管理員數據
+onMounted(fetchAdmin); 
 </script>
 
 <style scoped>

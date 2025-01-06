@@ -3,7 +3,7 @@
     <h2>新增管理員</h2>
     <form @submit.prevent="addAdmin">
       <div class="form-group">
-        <label for="username">用戶名</label>
+        <label for="username">用戶名稱</label>
         <input type="text" id="username" v-model="admin.adminusername" placeholder="請輸入用戶名" required />
       </div>
       <div class="form-group">
@@ -20,33 +20,47 @@
 </template>
 
 <script setup>
-import { reactive } from "vue";
+import { ref } from "vue";
 import { useRouter } from "vue-router";
 import axios from "axios";
 
-const admin = reactive({
+const router = useRouter();
+
+const admin = ref({
   adminusername: "",
   adminpassword: "",
   adminemail: "",
 });
 
-const router = useRouter();
-
 const addAdmin = async () => {
   try {
-    await axios.post("http://localhost:8080/api/admins", admin); 
+    await axios.post("http://localhost:8080/api/admins", admin.value); 
     alert("新增管理員成功！");
+    admin.value = {
+      adminusername: "",
+      adminpassword: "",
+      adminemail: "",
+    };
     router.push("/admins");
   } catch (error) {
-    console.error("新增失敗：", error);
+    console.error("新增管理員失敗：", error);
     alert("新增管理員失敗！");
   }
 };
 </script>
 
 <style scoped>
+input[type="text"], input[type="password"], input[type="email"] {
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
 .add-admin {
-  max-width: 600px;
+  max-width: 400px;
   margin: 20px auto;
   padding: 20px;
   border: 1px solid #ddd;
@@ -69,16 +83,7 @@ label {
   margin-bottom: 5px;
 }
 
-input {
-  width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 14px;
-}
-
 button {
-  display: block;
   width: 100%;
   padding: 10px;
   background-color: #007bff;

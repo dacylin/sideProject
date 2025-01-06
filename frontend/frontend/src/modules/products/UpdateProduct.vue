@@ -3,7 +3,7 @@
     <h2>更新產品</h2>
     <form @submit.prevent="submitUpdate">
       <div>
-        <label for="name">名稱：</label>
+        <label for="name">產品名稱：</label>
         <input id="name" v-model="product.productsname" type="text" />
       </div>
       <div>
@@ -23,7 +23,6 @@
 import { ref, onMounted } from "vue";
 import axios from "axios";
 
-// 使用 props 接收路由參數 id
 const props = defineProps(["id"]);
 
 const product = ref({
@@ -32,7 +31,6 @@ const product = ref({
   productsdescribe: "",
 });
 
-// 根據 id 請求產品詳細信息
 const fetchProductDetails = async () => {
   try {
     const response = await axios.get(`http://localhost:8080/api/products/${props.id}`);
@@ -42,7 +40,6 @@ const fetchProductDetails = async () => {
   }
 };
 
-// 提交更新
 const submitUpdate = async () => {
   try {
     await axios.put(`http://localhost:8080/api/products/${props.id}`, product.value);
