@@ -4,10 +4,7 @@ import lombok.Data;
 
 @Data
 public class Admin {
-
-    private Integer adminid;
-    private String adminusername;
-    private String adminpassword;
-    private String adminemail;
-
+    private int id;
+    private String username;
+    private String password;
 }

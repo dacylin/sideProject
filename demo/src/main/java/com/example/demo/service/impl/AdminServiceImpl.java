@@ -1,16 +1,14 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
 import com.example.demo.entity.Admin;
 import com.example.demo.mapper.AdminMapper;
 import com.example.demo.service.AdminService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
-
     private final AdminMapper adminMapper;
 
     public AdminServiceImpl(AdminMapper adminMapper) {
@@ -18,37 +16,22 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Admin validateAdmin(String username, String password) {
-        Admin admin = adminMapper.findByUsername(username);
-        if (admin != null && admin.getAdminpassword().equals(password)) {
-            return admin;
-        }
-        return null;
-    }
-
-    @Override
     public List<Admin> getAllAdmins() {
-        return adminMapper.getAllAdmins();
-    }
-
-    @Override
-    public Admin getAdminById(Integer adminid) {
-        return adminMapper.getAdminById(adminid);
+        return adminMapper.findAll();
     }
 
     @Override
     public void addAdmin(Admin admin) {
-        adminMapper.addAdmin(admin);
+        adminMapper.insert(admin);
     }
 
     @Override
-    public void updateAdmin(Admin admin) {
-        adminMapper.updateAdmin(admin);
+    public void deleteAdminById(int id) {
+        adminMapper.deleteById(id);
     }
 
     @Override
-    public void deleteAdmin(Integer adminid) {
-        adminMapper.deleteAdmin(adminid);
+    public void updateAdminPassword(int id, String password) {
+        adminMapper.updatePassword(id, password);
     }
-
 }

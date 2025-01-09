@@ -3,22 +3,17 @@ package com.example.demo.mapper;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.example.demo.entity.Admin;
 
 @Mapper
 public interface AdminMapper {
+    List<Admin> findAll();
 
-    Admin findByUsername(String username);
+    int insert(Admin admin);
 
-    List<Admin> getAllAdmins();
+    int deleteById(int id);
 
-    Admin getAdminById(Integer adminid);
-
-    int addAdmin(Admin admin);
-
-    int updateAdmin(Admin admin);
-
-    int deleteAdmin(Integer adminid);
-
+    int updatePassword(@Param("id") int id, @Param("password") String password);
 }

@@ -1,20 +1,18 @@
 package com.example.demo.mapper;
 
-import com.example.demo.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
-
 import java.util.List;
+import com.example.demo.entity.Product;
 
 @Mapper
 public interface ProductMapper {
+    List<Product> findAll();
 
-    List<Product> getAllProducts();
+    Product findById(int id);
 
-    Product getProductById(Integer productsid);
+    int insert(Product product);
 
-    int insertProduct(Product product);
+    int deleteById(int id);
 
-    int updateProduct(Product product);
-
-    int deleteProduct(Integer productsid);
+    int update(Product product);
 }

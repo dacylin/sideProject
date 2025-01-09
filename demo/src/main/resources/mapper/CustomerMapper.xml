@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.CustomerMapper">
+
+    <select id="findAll" resultType="com.example.demo.entity.Customer">
+        SELECT id, name, email, password, created_at FROM customers ORDER BY created_at DESC
+    </select>
+
+    <select id="findById" resultType="com.example.demo.entity.Customer">
+        SELECT id, name, email, password, created_at FROM customers WHERE id = #{id}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO customers (name, email, password, created_at)
+        VALUES (#{name}, #{email}, #{password}, NOW())
+    </insert>
+
+    <delete id="deleteById">
+        DELETE FROM customers WHERE id = #{id}
+    </delete>
+
+    <update id="update">
+        UPDATE customers
+        SET name = #{name},
+            email = #{email},
+            password = #{password}
+        WHERE id = #{id}
+    </update>
+
+</mapper>

@@ -1,15 +1,14 @@
 package com.example.demo.service.impl;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
 import com.example.demo.entity.Product;
 import com.example.demo.mapper.ProductMapper;
 import com.example.demo.service.ProductService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-
     private final ProductMapper productMapper;
 
     public ProductServiceImpl(ProductMapper productMapper) {
@@ -18,27 +17,26 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        return productMapper.getAllProducts();
+        return productMapper.findAll();
     }
 
     @Override
-    public Product getProductById(Integer productsid) {
-        return productMapper.getProductById(productsid);
+    public Product getProductById(int id) {
+        return productMapper.findById(id);
     }
 
     @Override
-    public void insertProduct(Product product) {
-        productMapper.insertProduct(product);
+    public void addProduct(Product product) {
+        productMapper.insert(product);
+    }
+
+    @Override
+    public void deleteProductById(int id) {
+        productMapper.deleteById(id);
     }
 
     @Override
     public void updateProduct(Product product) {
-        productMapper.updateProduct(product);
+        productMapper.update(product);
     }
-
-    @Override
-    public void deleteProduct(Integer productsid) {
-        productMapper.deleteProduct(productsid);
-    }
-
 }
