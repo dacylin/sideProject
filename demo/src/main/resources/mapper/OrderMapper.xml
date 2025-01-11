@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.OrderMapper">
+
+    <insert id="insert" parameterType="com.example.demo.entity.Order" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `order` (customer_id, total_amount)
+        VALUES (#{customerId}, #{totalAmount});
+    </insert>
+
+    <select id="findByCustomerId" resultType="com.example.demo.entity.Order">
+        SELECT * FROM `order` WHERE customer_id = #{customerId};
+    </select>
+
+    <select id="findByDateRange" resultType="com.example.demo.entity.Order">
+        SELECT * FROM `order` 
+        WHERE created_at BETWEEN #{startDate} AND #{endDate};
+    </select>
+
+    <select id="getCustomerTotalAmount" resultType="int">
+        SELECT SUM(total_amount) 
+        FROM `order` 
+        WHERE customer_id = #{customerId};
+    </select>
+
+    <select id="findTopSellingProducts" resultType="map">
+        SELECT 
+            p.id AS productId,
+            p.name AS productName,
+            SUM(oi.quantity) AS totalSold
+        FROM product p
+        JOIN order_item oi ON p.id = oi.product_id
+        GROUP BY p.id, p.name
+        ORDER BY totalSold DESC
+        LIMIT #{topN};
+    </select>
+
+    <select id="findTopSpendingCustomers" resultType="map">
+        SELECT 
+            c.id AS customerId,
+            c.name AS customerName,
+            SUM(o.total_amount) AS totalSpent
+        FROM customer c
+        JOIN `order` o ON c.id = o.customer_id
+        GROUP BY c.id, c.name
+        ORDER BY totalSpent DESC
+        LIMIT #{topN};
+    </select>
+
+
+</mapper>

@@ -1,16 +1,17 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Customer;
+
 import java.util.List;
 
 public interface CustomerService {
-    List<Customer> getAllCustomers();
+    List<Customer> findAll();
 
-    Customer getCustomerById(int id);
+    Customer findById(int id);
 
-    void addCustomer(Customer customer);
+    void insert(Customer customer);
 
-    void deleteCustomerById(int id);
+    void update(Customer customer);
 
-    void updateCustomer(Customer customer);
+    void deleteById(int id);
 }

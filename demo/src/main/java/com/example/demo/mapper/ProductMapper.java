@@ -1,8 +1,8 @@
 package com.example.demo.mapper;
 
+import com.example.demo.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
 import java.util.List;
-import com.example.demo.entity.Product;
 
 @Mapper
 public interface ProductMapper {
@@ -10,9 +10,9 @@ public interface ProductMapper {
 
     Product findById(int id);
 
-    int insert(Product product);
+    void insert(Product product);
 
-    int deleteById(int id);
+    void update(Product product);
 
-    int update(Product product);
+    void deleteById(int id);
 }
